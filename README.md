@@ -4,6 +4,8 @@
  pnpm install
 ```
 
+**NOTA : modificar el archivo env y [docker compoes](db\docker-compose.yml.template)**
+
 ## Compile and run the project
 
 ```bash
