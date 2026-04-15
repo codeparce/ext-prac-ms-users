@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TerminusModule } from '@nestjs/terminus';
 import { UserOrmEntity } from './infrastructure/persistence/user.orm-entity';
 import { UserRepositoryImpl } from './infrastructure/persistence/user.repository.impl';
 import { UserController } from './infrastructure/controllers/user.controller';
@@ -11,7 +12,7 @@ import { DeleteUserService } from './application/use-cases/delete-user.service';
 import { LoginUserService } from './application/use-cases/login-user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserOrmEntity])],
+  imports: [TypeOrmModule.forFeature([UserOrmEntity]), TerminusModule],
   controllers: [UserController],
   providers: [
     { provide: 'UserRepository', useClass: UserRepositoryImpl },

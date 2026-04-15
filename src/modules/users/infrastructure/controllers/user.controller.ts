@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { HealthCheck, HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus';
 import { CreateUserService } from '../../application/use-cases/create-user.service';
 import { GetUsersService } from '../../application/use-cases/get-users.service';
 import { GetUserService } from '../../application/use-cases/get-user.service';
@@ -17,7 +18,17 @@ export class UserController {
     private readonly updateUser: UpdateUserService,
     private readonly deleteUser: DeleteUserService,
     private readonly loginUser: LoginUserService,
+    private health: HealthCheckService,
+    private db: TypeOrmHealthIndicator,
   ) {}
+
+  @Get('health')
+  @HealthCheck()
+  check() {
+    return this.health.check([
+      () => this.db.pingCheck('database'),
+    ]);
+  }
 
   @Post('login')
   login(@Body() body: { email: string; password: string }) {
