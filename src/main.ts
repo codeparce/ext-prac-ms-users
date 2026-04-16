@@ -10,7 +10,11 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('MS_PORT', 3000);
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe({ 
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+  }));
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalFilters(new GlobalExceptionFilter());
   await app.listen(port);

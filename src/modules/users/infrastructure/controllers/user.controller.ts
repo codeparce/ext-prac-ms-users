@@ -8,6 +8,7 @@ import { DeleteUserService } from '../../application/use-cases/delete-user.servi
 import { LoginUserService } from '../../application/use-cases/login-user.service';
 import { CreateUserDto } from '../../application/dtos/create-user.dto';
 import { UpdateUserDto } from '../../application/dtos/update-user.dto';
+import { LoginUserDto } from '../../application/dtos/login-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -31,8 +32,8 @@ export class UserController {
   }
 
   @Post('login')
-  login(@Body() body: { email: string; password: string }) {
-    return this.loginUser.execute(body.email, body.password);
+  login(@Body() dto: LoginUserDto) {
+    return this.loginUser.execute(dto.email, dto.password);
   }
 
   @Post()
